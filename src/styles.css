@@ -91,6 +91,7 @@ button { cursor: pointer; }
 .button.outline { background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.34); color: white; }
 .button.primary { background: var(--primary-2); }
 .button.danger { background: var(--red); }
+.button.form-button { background: var(--green); color: white; }
 .button.ghost { background: #f1f5f9; color: #334155; box-shadow: none; }
 .admin-controls .button.outline { background: white; color: var(--primary); border: 1px solid var(--line); }
 
@@ -130,6 +131,38 @@ button { cursor: pointer; }
 .stat-card.green .stat-icon { background: var(--green-soft); color: var(--green); }
 .stat-card.amber .stat-icon { background: var(--amber-soft); color: var(--amber); }
 .stat-card.blue .stat-icon { background: var(--blue-soft); color: var(--primary-2); }
+.public-mode .stats-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
+.registration-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  background: linear-gradient(135deg, #ffffff 0%, #eaf8ef 100%);
+  border: 1px solid #bde5c8;
+  border-radius: 22px;
+  box-shadow: 0 14px 34px rgba(8,40,74,.08);
+  padding: 18px;
+  margin-bottom: 16px;
+}
+.registration-card span {
+  color: var(--green);
+  font-weight: 950;
+  text-transform: uppercase;
+  font-size: .78rem;
+  letter-spacing: .08em;
+}
+.registration-card h2 {
+  margin: 4px 0 5px;
+  color: var(--primary);
+  font-size: clamp(1.15rem, 2vw, 1.6rem);
+}
+.registration-card p {
+  margin: 0;
+  color: var(--muted);
+  font-weight: 800;
+}
+.registration-card .button { white-space: nowrap; }
 
 .control-panel {
   background: white;
@@ -214,7 +247,7 @@ tbody tr:hover { background: #fbfdff; }
 .public-print-header, .print-footer-only { display: none; }
 
 @media (max-width: 860px) {
-  .stats-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .stats-grid, .public-mode .stats-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .control-panel, .admin-controls { grid-template-columns: 1fr; }
   .form-grid { grid-template-columns: 1fr; }
 }
@@ -223,7 +256,9 @@ tbody tr:hover { background: #fbfdff; }
   .app-shell { width: min(100% - 18px, 1180px); margin-top: 10px; }
   .hero { border-radius: 22px; padding: 24px 18px; }
   .hero-actions .button, .form-actions .button { width: 100%; }
-  .stats-grid { grid-template-columns: 1fr; }
+  .stats-grid, .public-mode .stats-grid { grid-template-columns: 1fr; }
+  .registration-card { flex-direction: column; align-items: stretch; text-align: center; }
+  .registration-card .button { width: 100%; justify-content: center; }
   .contact-strip { align-items: stretch; }
   .contact-pill { width: 100%; justify-content: center; }
 }

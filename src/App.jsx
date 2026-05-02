@@ -21,6 +21,8 @@ import { supabase, isSupabaseConfigured } from "./supabaseClient";
 import { DEMO_RECORDS, EXPECTED_AMOUNT, FACILITATORS } from "./seedData";
 import { cleanName, downloadCSV, makeId, money, normalize, shortDate } from "./utils";
 
+const REGISTRATION_FORM_URL = "https://forms.gle/XtoYUvqG4Y85ofpq6";
+
 function StatCard({ icon: Icon, label, value, tone = "primary" }) {
   return (
     <div className={`stat-card ${tone}`}>
@@ -43,6 +45,22 @@ function ContactStrip() {
         </div>
       ))}
     </div>
+  );
+}
+
+
+function RegistrationCard() {
+  return (
+    <section className="registration-card screen-only">
+      <div>
+        <span>After payment</span>
+        <h2>Register your payment here</h2>
+        <p>Tap the button below to fill the Google Form for proper confirmation.</p>
+      </div>
+      <a className="button form-button" href={REGISTRATION_FORM_URL} target="_blank" rel="noopener noreferrer">
+        Open Registration Form
+      </a>
+    </section>
   );
 }
 
@@ -141,6 +159,7 @@ function PublicView({ records, loading, updatedAt }) {
         <h1>Peer-to-Peer Tuition Contribution Register</h1>
         <p>SEM 2-BLK 2 • Cohort 3</p>
         <div className="hero-actions">
+          <a className="button light" href={REGISTRATION_FORM_URL} target="_blank" rel="noopener noreferrer">Register After Payment</a>
           <button className="button light" onClick={() => window.print()}><Printer size={18} /> Print / Save PDF</button>
           <a className="button outline" href="#admin"><Lock size={18} /> Admin Login</a>
         </div>
@@ -150,7 +169,6 @@ function PublicView({ records, loading, updatedAt }) {
 
       <section className="stats-grid screen-only">
         <StatCard icon={Users} label="Total contributors" value={records.length} />
-        <StatCard icon={WalletCards} label="Total amount" value={money(total)} tone="green" />
         <StatCard icon={AlertTriangle} label="Partial payments" value={partialCount} tone="amber" />
         <StatCard icon={RefreshCw} label="Latest update" value={updatedAt ? shortDate(updatedAt) : "Live"} tone="blue" />
       </section>
@@ -171,6 +189,8 @@ function PublicView({ records, loading, updatedAt }) {
         <CheckCircle2 size={21} />
         <p>Thank you for joining Peer-to-Peer Tuition. Search for your name and keep a copy as proof of your contribution.</p>
       </section>
+
+      <RegistrationCard />
 
       <div className="screen-only"><ContactStrip /></div>
 
