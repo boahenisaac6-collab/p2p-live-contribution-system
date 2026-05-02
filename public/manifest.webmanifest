@@ -1,0 +1,9 @@
+{
+  "name": "Peer-to-Peer Tuition Contribution System",
+  "short_name": "P2P Contributions",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#eef5ff",
+  "theme_color": "#09284a",
+  "icons": []
+}
