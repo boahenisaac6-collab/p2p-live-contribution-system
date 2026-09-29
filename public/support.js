@@ -58,7 +58,7 @@ async function loadPublic(silent=false){
   try{
     const [campaigns,contributions]=await Promise.all([
       rest("support_campaigns?select=id,title,description,momo_network,momo_number,momo_account_name,is_open,created_at&order=created_at.desc"),
-      rest("support_contributions?select=id,campaign_id,contributor_name,amount,created_at,updated_at&order=created_at.desc")
+      rest("support_contributions?select=id,campaign_id,contributor_name,amount,created_at,updated_at&order=created_at.asc,id.asc")
     ]);
 
     activeCampaigns=campaigns||[];
