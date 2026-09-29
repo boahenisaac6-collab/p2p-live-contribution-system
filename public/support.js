@@ -21,7 +21,8 @@ const apiHeaders=(json=false)=>({
 const money=value=>new Intl.NumberFormat("en-GH",{
   style:"currency",currency:"GHS",minimumFractionDigits:2
 }).format(Number(value)||0).replace("GHS","GH₵");
-const clean=value=>String(value??"").trim();\nconst upperName=value=>clean(value).toUpperCase();
+const clean=value=>String(value??"").trim();
+const upperName=value=>clean(value).toUpperCase();
 const escapeHtml=(value="")=>String(value).replace(/[&<>'"]/g,c=>({
   "&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;",'"':"&quot;"
 }[c]));
@@ -141,7 +142,15 @@ $("campaignTabs").addEventListener("click",event=>{
   renderPublic();
 });
 
-["nameInput","editNameInput"].forEach(id=>{\n  $(id).addEventListener("input",event=>{\n    const start=event.target.selectionStart;\n    event.target.value=event.target.value.toUpperCase();\n    try{event.target.setSelectionRange(start,start);}catch{}\n  });\n});\n\n$("searchInput").addEventListener("input",renderPublicRows);
+["nameInput","editNameInput"].forEach(id=>{
+  $(id).addEventListener("input",event=>{
+    const start=event.target.selectionStart;
+    event.target.value=event.target.value.toUpperCase();
+    try{event.target.setSelectionRange(start,start);}catch{}
+  });
+});
+
+$("searchInput").addEventListener("input",renderPublicRows);
 $("refreshBtn").addEventListener("click",()=>loadPublic());
 $("printBtn").addEventListener("click",()=>window.print());
 $("copyMomoBtn").addEventListener("click",async()=>{
