@@ -4,81 +4,212 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#0b5d4b">
-<title>Colleague Support Fund</title>
+<title>AMeST Welfare Contributions</title>
 <link rel="stylesheet" href="/support.css">
 </head>
 <body>
 <main class="app">
-<div class="top">
-  <div class="brand"><div class="logo">❤</div><div><b>Colleague Support Fund</b><span>Contribution dashboard</span></div></div>
-  <button class="btn" id="adminBtn">Admin</button>
-</div>
+  <header class="topbar">
+    <div class="brand">
+      <div class="brandmark">❤</div>
+      <div>
+        <strong>AMeST Welfare Contributions</strong>
+        <span>Transparent support • One community</span>
+      </div>
+    </div>
+    <button class="btn ghost" id="adminBtn">Admin</button>
+  </header>
 
-<section class="hero">
-  <small>Together we support one another</small>
-  <h1>Support Contribution Dashboard</h1>
-  <p>Contributions towards the surgery and recovery of our colleague teacher after an accident. Every contribution is sincerely appreciated.</p>
-  <div class="total">
-    <label>Total Contributed</label>
-    <strong id="grandTotal">GH₵0.00</strong>
-    <span id="contributorCount">0 contributors</span>
-  </div>
-</section>
+  <section id="publicArea">
+    <div class="campaignTabs" id="campaignTabs"></div>
 
-<div class="tools">
-  <div class="search">⌕ <input id="searchInput" placeholder="Search contributor..." autocomplete="off"></div>
-  <button class="btn tool refresh" id="refreshBtn">Refresh</button>
-  <button class="btn tool" id="printBtn">Print</button>
-</div>
+    <section class="hero" id="heroCard">
+      <div class="heroBadge">OPEN CONTRIBUTION</div>
+      <h1 id="campaignTitle">Loading contribution…</h1>
+      <p id="campaignDescription"></p>
 
-<section class="card">
-  <div class="cardhead"><h2>Contributors</h2><span class="pill" id="visibleCount">0 listed</span></div>
-  <div class="wrap" id="tableWrap">
-    <table>
-      <thead><tr><th>#</th><th>Name</th><th class="amount">Amount</th></tr></thead>
-      <tbody id="contributionBody"></tbody>
-    </table>
-  </div>
-  <div class="empty" id="emptyState">No contributions have been entered yet.</div>
-</section>
-<div class="status" id="statusText">Loading contribution list…</div>
+      <div class="momoCard">
+        <div class="momoTop">
+          <div>
+            <span class="miniLabel" id="momoNetwork">MTN MOBILE MONEY</span>
+            <strong class="blinkNumber" id="momoNumber">0244080881</strong>
+          </div>
+          <button class="copyBtn" id="copyMomoBtn" type="button">Copy Number</button>
+        </div>
+        <div class="accountLine">
+          <span>Account Name</span>
+          <b id="momoAccount">SASU REXFORD</b>
+        </div>
+        <div class="payHint">Please use the number above for this contribution and confirm the account name before sending.</div>
+      </div>
+
+      <div class="stats">
+        <div class="stat">
+          <span>Total Contributed</span>
+          <strong id="grandTotal">GH₵0.00</strong>
+        </div>
+        <div class="stat smallStat">
+          <span>Contributors</span>
+          <strong id="contributorCount">0</strong>
+        </div>
+      </div>
+    </section>
+
+    <section class="toolbar">
+      <div class="searchBox">
+        <span>⌕</span>
+        <input id="searchInput" placeholder="Search contributor..." autocomplete="off">
+      </div>
+      <button class="btn" id="refreshBtn">Refresh</button>
+      <button class="btn" id="printBtn">Print / PDF</button>
+    </section>
+
+    <section class="card contributionCard">
+      <div class="cardHead">
+        <div>
+          <span class="eyebrow">CONTRIBUTOR LIST</span>
+          <h2 id="listTitle">Contributors</h2>
+        </div>
+        <span class="countPill" id="visibleCount">0 listed</span>
+      </div>
+      <div class="tableWrap" id="tableWrap">
+        <table>
+          <thead>
+            <tr><th>#</th><th>Name</th><th class="amount">Amount</th></tr>
+          </thead>
+          <tbody id="contributionBody"></tbody>
+        </table>
+      </div>
+      <div class="empty" id="emptyState">No contributions have been entered yet.</div>
+    </section>
+
+    <div class="status" id="statusText">Loading…</div>
+  </section>
+
+  <section class="closedLanding" id="closedLanding">
+    <div class="closedIcon">✓</div>
+    <h1>No contribution is currently open</h1>
+    <p>Closed campaigns remain safely stored in the admin area. When a new contribution is opened, it will appear here automatically.</p>
+  </section>
 </main>
 
 <div class="modal" id="adminModal">
-  <div class="box">
-    <div class="mhead"><h2>Admin Mode</h2><button class="close" id="adminCloseBtn">×</button></div>
-
-    <div id="codeScreen">
-      <div class="field">
-        <label for="codeInput">Admin access code</label>
-        <input class="code" id="codeInput" inputmode="numeric" maxlength="4" autocomplete="off" placeholder="••••">
+  <div class="adminShell">
+    <div class="modalHead">
+      <div>
+        <span class="eyebrow">ADMIN CONTROL</span>
+        <h2>Contribution Manager</h2>
       </div>
-      <button class="primary" id="openAdminBtn">Open Admin</button>
-      <div class="error" id="codeError"></div>
+      <button class="iconBtn" id="adminCloseBtn" type="button">×</button>
     </div>
 
-    <div class="admin" id="adminApp">
-      <form class="form" id="addForm">
-        <div class="grid">
-          <div class="field"><label for="nameInput">Contributor Name</label><input id="nameInput" maxlength="120" placeholder="Enter name"></div>
-          <div class="field"><label for="amountInput">Amount (GH₵)</label><input id="amountInput" type="number" min="0.01" step="0.01" inputmode="decimal" placeholder="0.00"></div>
+    <section id="pinScreen" class="pinScreen">
+      <p>Enter the 4-digit admin PIN to manage campaigns and contributions.</p>
+      <input id="pinInput" class="pinInput" inputmode="numeric" maxlength="4" autocomplete="off" placeholder="••••">
+      <button class="primaryBtn" id="openAdminBtn" type="button">Open Admin</button>
+      <div class="formError" id="pinError"></div>
+    </section>
+
+    <section id="adminApp" class="adminApp">
+      <div class="adminToolbar">
+        <div>
+          <span class="eyebrow">CAMPAIGNS</span>
+          <h3>Open, close or create contributions</h3>
         </div>
-        <button class="primary" id="saveContributionBtn">Add Contribution</button>
-        <div class="error" id="adminError"></div>
-      </form>
-
-      <div class="editbox" id="editBox">
-        <div class="mhead"><h3>Edit Contribution</h3><button class="close" id="editCloseBtn">×</button></div>
-        <div class="field"><label for="editNameInput">Name</label><input id="editNameInput" maxlength="120"></div>
-        <div class="field"><label for="editAmountInput">Amount (GH₵)</label><input id="editAmountInput" type="number" min="0.01" step="0.01" inputmode="decimal"></div>
-        <button class="primary" id="updateContributionBtn">Save Changes</button>
+        <button class="primaryBtn compact" id="newCampaignBtn" type="button">+ New Campaign</button>
       </div>
 
-      <div class="manage" id="adminList"></div>
-    </div>
+      <div class="campaignManager" id="campaignManager"></div>
+
+      <section class="editorPanel" id="campaignEditor">
+        <div class="editorHead">
+          <div>
+            <span class="eyebrow" id="campaignEditorLabel">NEW CAMPAIGN</span>
+            <h3 id="campaignEditorTitle">Create Contribution</h3>
+          </div>
+          <button class="iconBtn" id="campaignEditorClose" type="button">×</button>
+        </div>
+
+        <div class="field">
+          <label for="campaignTitleInput">Contribution Title</label>
+          <input id="campaignTitleInput" maxlength="120" placeholder="e.g. Medical Support for a Colleague">
+        </div>
+        <div class="field">
+          <label for="campaignDescriptionInput">Contribution Description</label>
+          <textarea id="campaignDescriptionInput" maxlength="600" rows="4" placeholder="Explain what the contribution is for."></textarea>
+        </div>
+        <div class="formGrid three">
+          <div class="field">
+            <label for="campaignNetworkInput">Network</label>
+            <input id="campaignNetworkInput" value="MTN" maxlength="30">
+          </div>
+          <div class="field">
+            <label for="campaignNumberInput">MoMo Number</label>
+            <input id="campaignNumberInput" inputmode="tel" value="0244080881" maxlength="30">
+          </div>
+          <div class="field">
+            <label for="campaignAccountInput">Account Name</label>
+            <input id="campaignAccountInput" value="SASU REXFORD" maxlength="120">
+          </div>
+        </div>
+        <label class="switchRow">
+          <input type="checkbox" id="campaignOpenInput" checked>
+          <span class="switch"></span>
+          <span>Open this contribution immediately</span>
+        </label>
+        <button class="primaryBtn" id="saveCampaignBtn" type="button">Create Campaign</button>
+        <div class="formError" id="campaignError"></div>
+      </section>
+
+      <section class="adminSection">
+        <div class="sectionHead">
+          <div>
+            <span class="eyebrow">CONTRIBUTIONS</span>
+            <h3>Add contributor</h3>
+          </div>
+          <select id="adminCampaignSelect"></select>
+        </div>
+
+        <form class="entryForm" id="addForm">
+          <div class="formGrid two">
+            <div class="field">
+              <label for="nameInput">Contributor Name</label>
+              <input id="nameInput" maxlength="120" placeholder="Enter contributor name">
+            </div>
+            <div class="field">
+              <label for="amountInput">Amount (GH₵)</label>
+              <input id="amountInput" type="number" min="0.01" step="0.01" inputmode="decimal" placeholder="0.00">
+            </div>
+          </div>
+          <button class="primaryBtn" id="saveContributionBtn">Add Contribution</button>
+          <div class="formError" id="adminError"></div>
+        </form>
+
+        <div class="editPanel" id="editPanel">
+          <div class="editorHead">
+            <h3>Edit Contributor</h3>
+            <button class="iconBtn" id="editCloseBtn" type="button">×</button>
+          </div>
+          <div class="formGrid two">
+            <div class="field">
+              <label for="editNameInput">Name</label>
+              <input id="editNameInput" maxlength="120">
+            </div>
+            <div class="field">
+              <label for="editAmountInput">Amount (GH₵)</label>
+              <input id="editAmountInput" type="number" min="0.01" step="0.01" inputmode="decimal">
+            </div>
+          </div>
+          <button class="primaryBtn" id="updateContributionBtn" type="button">Save Changes</button>
+        </div>
+
+        <div class="adminContributionList" id="adminContributionList"></div>
+      </section>
+    </section>
   </div>
 </div>
 
+<div class="toast" id="toast"></div>
 <script src="/support.js"></script>
 </body>
 </html>
