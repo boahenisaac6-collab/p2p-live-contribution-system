@@ -21,7 +21,7 @@ const apiHeaders=(json=false)=>({
 const money=value=>new Intl.NumberFormat("en-GH",{
   style:"currency",currency:"GHS",minimumFractionDigits:2
 }).format(Number(value)||0).replace("GHS","GH₵");
-const clean=value=>String(value??"").trim();
+const clean=value=>String(value??"").trim();\nconst upperName=value=>clean(value).toUpperCase();
 const escapeHtml=(value="")=>String(value).replace(/[&<>'"]/g,c=>({
   "&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;",'"':"&quot;"
 }[c]));
@@ -141,7 +141,7 @@ $("campaignTabs").addEventListener("click",event=>{
   renderPublic();
 });
 
-$("searchInput").addEventListener("input",renderPublicRows);
+["nameInput","editNameInput"].forEach(id=>{\n  $(id).addEventListener("input",event=>{\n    const start=event.target.selectionStart;\n    event.target.value=event.target.value.toUpperCase();\n    try{event.target.setSelectionRange(start,start);}catch{}\n  });\n});\n\n$("searchInput").addEventListener("input",renderPublicRows);
 $("refreshBtn").addEventListener("click",()=>loadPublic());
 $("printBtn").addEventListener("click",()=>window.print());
 $("copyMomoBtn").addEventListener("click",async()=>{
@@ -439,7 +439,7 @@ $("saveCampaignBtn").addEventListener("click",async()=>{
 $("addForm").addEventListener("submit",async event=>{
   event.preventDefault();
   const campaign=currentAdminCampaign();
-  const name=clean($("nameInput").value);
+  const name=upperName($("nameInput").value);
   const amount=Number($("amountInput").value);
   $("adminError").textContent="";
 
@@ -510,7 +510,7 @@ $("editCloseBtn").addEventListener("click",()=>{
 });
 
 $("updateContributionBtn").addEventListener("click",async()=>{
-  const name=clean($("editNameInput").value);
+  const name=upperName($("editNameInput").value);
   const amount=Number($("editAmountInput").value);
   $("adminError").textContent="";
 
